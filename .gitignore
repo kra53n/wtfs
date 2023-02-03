@@ -1,5 +1,2 @@
 target/
 Cargo.lock
-
-crates/file_reader/src/test
-crates/file_reader/src/main.rs
