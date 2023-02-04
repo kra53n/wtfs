@@ -33,8 +33,8 @@ fn include_entry(config: &Config, entry: &DirEntry) -> bool {
 	true
 }
 
-pub fn get_files(config: &Config) -> Vec<DirEntry> {
-	let curr_dir = fs::read_dir(&config.path).unwrap();
+pub fn get_files(config: &Config) -> Result<Vec<DirEntry>, std::io::Error> {
+	let curr_dir = fs::read_dir(&config.path)?;
 	let mut dirs: LinkedList<ReadDir> = LinkedList::new();
 	dirs.push_back(curr_dir);
 	let mut res: Vec<DirEntry> = vec![];
@@ -59,8 +59,8 @@ pub fn get_files(config: &Config) -> Vec<DirEntry> {
 		}
 
 		if !config.recursively {
-			return res;
+			return Ok(res);
 		}
 	}
-	res
+	Ok(res)
 }
