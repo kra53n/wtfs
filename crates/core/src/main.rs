@@ -28,6 +28,10 @@ struct Args {
 
     #[arg(short='i', long)]
     include_specific_entry: Option<Vec<String>>,
+
+	/// Print all matching files
+    #[arg(short='f', long)]
+    print_files: bool,
 }
 
 
@@ -42,7 +46,13 @@ fn main() {
         recursively: args.recursively,
     };
 
-    if let Err(e) = run(&reader_config, args.sort) {
+	let config = core::Config {
+		reader_config,
+		sort: args.sort,
+		print_files: args.print_files,
+	};
+
+    if let Err(e) = run(&config) {
         println!("Applicaton error: {}", e);
         process::exit(1);
     }

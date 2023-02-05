@@ -2,7 +2,8 @@ pub mod entry;
 pub use entry::Entry;
 
 pub mod table;
-pub use table::print_table;
+
+pub mod statistics;
 
 use clap::ValueEnum;
 
@@ -22,16 +23,19 @@ pub enum SortOption {
     Size,
 }
 
-pub fn run(
-    reader_config: &reader::Config,
-    sort: Option<SortOption>,
-) -> Result<(), std::io::Error> {
-    let dir_entries = reader::get_files(&reader_config)?;
+pub struct Config {
+	pub reader_config: reader::Config,
+	pub sort: Option<SortOption>,
+	pub print_files: bool,
+}
+
+pub fn run(config: &Config) -> Result<(), std::io::Error> {
+    let dir_entries = reader::get_files(&config.reader_config)?;
     let mut entries: Vec<Entry> = dir_entries.iter()
         .map(|elem| Entry::from(elem))
         .collect();
 
-    match sort {
+    match config.sort {
         Some(sort) => match sort {
             SortOption::Path => entries.sort_by_key(|elem|
                 elem.path.to_string_lossy().into_owned()),
@@ -50,7 +54,12 @@ pub fn run(
         _ => (),
     };
 
-    print_table(&entries);
+	statistics::print(&entries);
+
+	if config.print_files {
+		println!();
+		table::print(&entries);
+	}
 
     Ok(())
 }
