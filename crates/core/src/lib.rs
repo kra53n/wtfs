@@ -4,6 +4,8 @@ pub use entry::Entry;
 pub mod table;
 pub use table::print_table;
 
+pub mod statistics;
+
 use clap::ValueEnum;
 
 use reader;
@@ -22,6 +24,7 @@ pub enum SortOption {
     Size,
 }
 
+// TODO use config as function argument
 pub fn run(
     reader_config: &reader::Config,
     sort: Option<SortOption>,
