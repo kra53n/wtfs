@@ -6,6 +6,7 @@ struct Spaces {
     path: usize,
     lines: usize,
     size: usize,
+    extension: usize,
 }
 
 fn get_max_path(entries: &Vec<Entry>) -> usize {
@@ -14,6 +15,15 @@ fn get_max_path(entries: &Vec<Entry>) -> usize {
         .max_by_key(|elem| elem.path.len())
         .unwrap()
         .path
+        .len()
+}
+
+fn get_max_extension(entries: &Vec<Entry>) -> usize {
+    entries
+        .iter()
+        .max_by_key(|elem| elem.extension.len())
+        .unwrap()
+        .name
         .len()
 }
 
@@ -53,11 +63,15 @@ fn print_spaces(num: usize) {
 
 fn print_row(elems: &mut Vec<String>, spaces: &Spaces) {
     let path = elems.pop().unwrap();
+    let extension = elems.pop().unwrap();
     let lines = elems.pop().unwrap();
     let size = elems.pop().unwrap();
 
     print!("{}", path);
     print_spaces(spaces.path - path.len() + spaces.between_cols);
+
+    print!("{}", extension);
+    print_spaces(spaces.extension - extension.len() + spaces.between_cols);
 
     print!("{}", lines);
     print_spaces(spaces.lines - lines.len() + spaces.between_cols);
@@ -73,6 +87,7 @@ pub fn print_table(entries: &Vec<Entry>) {
     let spaces = Spaces {
         between_cols: 3,
         path: cmp::max(get_max_path(&entries), "path".len()),
+        extension: cmp::max(get_max_extension(&entries), "extension".len()),
         lines: cmp::max(get_max_lines(&entries), "lines".len()),
         size: cmp::max(get_max_size(&entries), "size".len()),
     };
@@ -81,6 +96,7 @@ pub fn print_table(entries: &Vec<Entry>) {
         &mut vec![
             String::from("SIZE"),
             String::from("LINES"),
+            String::from("EXTENSION"),
             String::from("PATH"),
         ],
         &spaces,
@@ -95,6 +111,7 @@ pub fn print_table(entries: &Vec<Entry>) {
                     Ok(lines) => lines.to_string(),
                     Err(_) => String::from("-"),
                 },
+                entry.extension.to_string(),
                 entry.path.to_string_lossy().into_owned(),
             ],
             &spaces,

@@ -14,6 +14,8 @@ pub enum SortOption {
     Path,
     /// By name
     Name,
+    /// By extension
+    Extension,
     /// By lines
     Lines,
     /// By size
@@ -35,6 +37,8 @@ pub fn run(
                 elem.path.to_string_lossy().into_owned()),
             SortOption::Name => entries.sort_by_key(|elem|
                 elem.name.to_string_lossy().into_owned()),
+            SortOption::Extension => entries.sort_by_key(|elem|
+                String::clone(&elem.extension)),
             SortOption::Lines => entries.sort_by_key(|elem| {
                 match elem.lines {
                     Ok(lines) => lines,
