@@ -1,7 +1,7 @@
 <div align='center'>
 
-# ***`wtf`***
+# ***`wtfs`***
 
-***`wtf`*** is utility for printing file statistic of project.
+***`wtfs`*** is utility for printing file statistic of project.
 
 </div>

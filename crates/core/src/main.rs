@@ -3,7 +3,7 @@ use std::process;
 use clap::Parser;
 
 use reader;
-use core::{run, SortOption};
+use wtfs::{run, SortOption};
 
 /// Utility for printing file statistic of project
 #[derive(Parser, Debug)]
@@ -46,7 +46,7 @@ fn main() {
         recursively: args.recursively,
     };
 
-	let config = core::Config {
+	let config = wtfs::Config {
 		reader_config,
 		sort: args.sort,
 		print_files: args.print_files,
