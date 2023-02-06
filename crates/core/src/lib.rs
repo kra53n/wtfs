@@ -23,17 +23,20 @@ pub enum SortOption {
     Size,
 }
 
+pub struct Config {
+	pub reader_config: reader::Config,
+	pub sort: Option<SortOption>,
+	pub print_files: bool,
+}
+
 // TODO use config as function argument
-pub fn run(
-    reader_config: &reader::Config,
-    sort: Option<SortOption>,
-) -> Result<(), std::io::Error> {
-    let dir_entries = reader::get_files(&reader_config)?;
+pub fn run(config: &Config) -> Result<(), std::io::Error> {
+    let dir_entries = reader::get_files(&config.reader_config)?;
     let mut entries: Vec<Entry> = dir_entries.iter()
         .map(|elem| Entry::from(elem))
         .collect();
 
-    match sort {
+    match config.sort {
         Some(sort) => match sort {
             SortOption::Path => entries.sort_by_key(|elem|
                 elem.path.to_string_lossy().into_owned()),
@@ -53,9 +56,11 @@ pub fn run(
     };
 
 	statistics::print(&entries);
-	println!();
-	
-    table::print(&entries);
+
+	if config.print_files {
+		println!();
+		table::print(&entries);
+	}
 
     Ok(())
 }

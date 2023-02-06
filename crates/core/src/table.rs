@@ -94,10 +94,10 @@ pub fn print(entries: &Vec<Entry>) {
 
     print_row(
         &mut vec![
-            String::from("SIZE"),
-            String::from("LINES"),
-            String::from("EXTENSION"),
-            String::from("PATH"),
+            String::from("Size"),
+            String::from("Lines"),
+            String::from("Extension"),
+            String::from("Path"),
         ],
         &spaces,
     );
