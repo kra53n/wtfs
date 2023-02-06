@@ -1,0 +1,18 @@
+[workspace]
+members = [
+    "crates/core",
+    "crates/file_type",
+    "crates/reader",
+]
+
+[package]
+name = "wtfs"
+version = "0.1.0"
+edition = "2021"
+
+license = "MIT"
+description = "wtfs is utility for printing file statistic of project"
+repository = "https://github.com/kra53n/wtfs"
+readme = "README.md"
+keywords = ["wtfs", "wtf", "statistics", "utility", "files"]
+catigories = ["command-line-utilities"]
