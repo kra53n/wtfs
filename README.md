@@ -2,6 +2,6 @@
 
 # ***`wtf`***
 
-***`wtf`*** is utility that print all statistics of project files.
+***`wtf`*** is utility for printing file statistic of project.
 
 </div>
