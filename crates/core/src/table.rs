@@ -83,7 +83,7 @@ fn print_row(elems: &mut Vec<String>, spaces: &Spaces) {
     println!();
 }
 
-pub fn print_table(entries: &Vec<Entry>) {
+pub fn print(entries: &Vec<Entry>) {
     let spaces = Spaces {
         between_cols: 3,
         path: cmp::max(get_max_path(&entries), "path".len()),

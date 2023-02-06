@@ -2,7 +2,6 @@ pub mod entry;
 pub use entry::Entry;
 
 pub mod table;
-pub use table::print_table;
 
 pub mod statistics;
 
@@ -53,7 +52,10 @@ pub fn run(
         _ => (),
     };
 
-    print_table(&entries);
+	statistics::print(&entries);
+	println!();
+	
+    table::print(&entries);
 
     Ok(())
 }
