@@ -29,7 +29,6 @@ pub struct Config {
 	pub print_files: bool,
 }
 
-// TODO use config as function argument
 pub fn run(config: &Config) -> Result<(), std::io::Error> {
     let dir_entries = reader::get_files(&config.reader_config)?;
     let mut entries: Vec<Entry> = dir_entries.iter()
