@@ -13,7 +13,11 @@ pub struct Config {
 
 fn is_hidden_entry(entry: &DirEntry) -> bool {
 	let name = entry.file_name().into_string().unwrap();
-	name.get(0..1).unwrap() == "."
+	let mut name = name.char_indices();
+	match name.next() {
+		Some(c) => c.1 == '.',
+		None => false,
+	}
 }
 
 fn include_entry(config: &Config, entry: &DirEntry) -> bool {
